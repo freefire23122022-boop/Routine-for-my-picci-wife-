@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HER WELLNESS ♡</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fff7fa;
+  color: #49343d;
+}
+
+header {
+  background: linear-gradient(135deg,#f6c6d9,#fce8f0);
+  padding: 25px 18px;
+  border-radius: 0 0 25px 25px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #a84970;
+}
+
+.subtitle {
+  color: #92506c;
+  margin-top: 7px;
+}
+
+.date-box {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.date-box h2 {
+  color: #a84970;
+  font-size: 19px;
+}
+
+.date-box p {
+  margin-top: 5px;
+  color: #967482;
+  font-size: 13px;
+}
+
+.container {
+  padding: 18px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.progress-card {
+  background: white;
+  padding: 18px;
+  border-radius: 17px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px #f1dce5;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #f4e4eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #d878a0;
+  transition: .3s;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 14px 5px;
+  background: white;
+  border: 1px solid #f2d5e1;
+  border-radius: 13px;
+  color: #a84970;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #edb4cb;
+  color: white;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.section-title {
+  font-size: 21px;
+  color: #a84970;
+  margin-bottom: 15px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 13px;
+  box-shadow: 0 2px 10px #f2e2e9;
+}
+
+.card h3 {
+  color: #a84970;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #765e69;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px;
+  background: #fff4f8;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 19px;
+  height: 19px;
+  accent-color: #d36e98;
+}
+
+.exercise-img {
+  width: 100%;
+  max-height: 190px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 8px 0;
+  background: #fce8f0;
+}
+
+.steps {
+  padding-left: 20px;
+  margin-top: 8px;
+  color: #765e69;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #ad7990;
+  font-size: 13px;
+}
+
+.empty {
+  text-align: center;
+  padding: 25px;
+  color: #ad7990;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">HER WELLNESS ♡</div>
+  <div class="subtitle">
+    Your Health, Your Happiness 🌸
+  </div>
+
+  <div class="date-box">
+    <h2 id="date">Loading...</h2>
+    <p id="day">Loading...</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="progress-card">
+    <div class="progress-top">
+      <b>Today's Progress</b>
+      <b id="percent">0%</b>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress"></div>
+    </div>
+    <p id="count" style="margin-top:10px;font-size:13px">
+      0 tasks completed
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('food',this)">
+      🍽️ Food
+    </button>
+    <button class="tab" onclick="showTab('water',this)">
+      💧 Water
+    </button>
+    <button class="tab" onclick="showTab('exercise',this)">
+      🧘 Exercise
+    </button>
+  </div>
+
+  <div id="food" class="section active">
+    <h2 class="section-title">🍽️ Daily Food</h2>
+    <div id="foodList"></div>
+  </div>
+
+  <div id="water" class="section">
+    <h2 class="section-title">💧 Water Tracker</h2>
+    <div id="waterList"></div>
+  </div>
+
+  <div id="exercise" class="section">
+    <h2 class="section-title">🧘 Exercise Guide</h2>
+    <div id="exerciseList"></div>
+  </div>
+
+</div>
+
+<footer>
+  Made with Love ♡ HER WELLNESS
+  <p style="margin-top:7px">
+    Take care of yourself every day 🌷
+  </p>
+</footer>
+
+<script>
+
+// Bangladesh date and time
+function getBDDate() {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone:'Asia/Dhaka',
+    year:'numeric',
+    month:'2-digit',
+    day:'2-digit'
+  }).format(new Date());
+}
+
+function getBDDay() {
+  const date = new Date(
+    new Date().toLocaleString('en-US',{
+      timeZone:'Asia/Dhaka'
+    })
+  );
+  return date.getDay();
+}
+
+const days = [
+  "Sunday","Monday","Tuesday",
+  "Wednesday","Thursday","Friday","Saturday"
+];
+
+const foodPlans = [
+  {
+    breakfast:"রুটি, ডিম ও একটি মৌসুমি ফল।",
+    lunch:"ভাত, মাছ, ডাল ও সবজি।",
+    snack:"ফল, দই অথবা বাদাম।",
+    dinner:"ভাত বা রুটি, ডিম/মাছ ও সবজি।"
+  },
+  {
+    breakfast:"খিচুড়ি ও ডিম।",
+    lunch:"ভাত, মুরগি, ডাল ও সবজি।",
+    snack:"কলা ও দই।",
+    dinner:"রুটি, সবজি ও মাছ।"
+  },
+  {
+    breakfast:"রুটি, ডিম ও দুধ।",
+    lunch:"ভাত, মাছ ও ডাল।",
+    snack:"পেয়ারা অথবা অন্য ফল।",
+    dinner:"ভাত, সবজি ও ডিম।"
+  },
+  {
+    breakfast:"সবজি খিচুড়ি ও ফল।",
+    lunch:"ভাত, মাছ ও সবজি।",
+    snack:"দই ও ফল।",
+    dinner:"রুটি, ডাল ও সবজি।"
+  },
+  {
+    breakfast:"রুটি, ডিম ও কলা।",
+    lunch:"ভাত, মুরগি ও সবজি।",
+    snack:"মৌসুমি ফল ও বাদাম।",
+    dinner:"ভাত, মাছ ও ডাল।"
+  },
+  {
+    breakfast:"চিড়া, দুধ ও কলা।",
+    lunch:"ভাত, মাছ ও সবজি।",
+    snack:"ফল অথবা দই।",
+    dinner:"রুটি, ডিম ও সবজি।"
+  },
+  {
+    breakfast:"রুটি, ডিম ও ফল।",
+    lunch:"ভাত, মাছ, ডাল ও সবজি।",
+    snack:"দই ও কলা।",
+    dinner:"খিচুড়ি ও সবজি।"
+  }
+];
+
+const waterPlans = [
+  "ঘুম থেকে ওঠার পর",
+  "সকালের খাবারের সময়",
+  "দুপুরের খাবারের সময়",
+  "বিকেলে",
+  "সন্ধ্যায়",
+  "রাতে প্রয়োজন অনুযায়ী"
+];
+
+const exercisePlans = [
+  [
+    ["Gentle Stretching","৩ মিনিট","আরামদায়কভাবে শরীর প্রসারিত করবে।"],
+    ["Shoulder Rolls","৫ বার সামনে ও ৫ বার পেছনে","কাঁধ ধীরে ধীরে ঘোরাবে।"]
+  ],
+  [
+    ["Gentle Walking","৫ মিনিট","ঘরের ভেতরে স্বাভাবিক গতিতে হাঁটবে।"],
+    ["Ankle Circles","প্রতি পায়ে ৫ বার","বসে পায়ের গোড়ালি ধীরে ঘোরাবে।"]
+  ],
+  [
+    ["Cat-Cow Stretch","৫ বার","হাত ও হাঁটুতে ভর দিয়ে ধীরে পিঠের অবস্থান পরিবর্তন করবে।"],
+    ["Gentle Stretching","৩ মিনিট","আরাম অনুযায়ী শরীর প্রসারিত করবে।"]
+  ],
+  [
+    ["Rest Day","বিশ্রাম","আজ শরীরকে বিশ্রাম দেবে।"],
+    ["Relaxation","৩ মিনিট","আরাম করে বসে স্বাভাবিক শ্বাস নেবে।"]
+  ],
+  [
+    ["Shoulder Rolls","৫ বার","কাঁধ ধীরে ঘোরাবে।"],
+    ["Gentle Walking","৫ মিনিট","স্বাভাবিকভাবে হাঁটবে।"]
+  ],
+  [
+    ["Ankle Circles","প্রতি পায়ে ৫ বার","বসে পা ধীরে ঘোরাবে।"],
+    ["Gentle Stretching","৩ মিনিট","কোনো চাপ না দিয়ে স্ট্রেচ করবে।"]
+  ],
+  [
+    ["Relaxation","৩ মিনিট","আরাম করে বসবে।"],
+    ["Gentle Walking","৫ মিনিট","ইচ্ছা হলে স্বাভাবিকভাবে হাঁটবে।"]
+  ]
+];
+
+// Local storage
+let currentDate = getBDDate();
+let completed = {};
+
+function loadData() {
+  try {
+    completed = JSON.parse(
+      localStorage.getItem('herWellnessChecks') || '{}'
+    );
+  } catch(e) {
+    completed = {};
+  }
+}
+
+function saveData() {
+  localStorage.setItem(
+    'herWellnessChecks',
+    JSON.stringify(completed)
+  );
+}
+
+function updateDate() {
+  const now = new Date();
+  const date = getBDDate();
+
+  if(date !== currentDate) {
+    currentDate = date;
+    renderAll();
+  }
+
+  const formatted = new Intl.DateTimeFormat('en-GB',{
+    timeZone:'Asia/Dhaka',
+    day:'numeric',
+    month:'long',
+    year:'numeric'
+  }).format(now);
+
+  document.getElementById('date').textContent = formatted;
+  document.getElementById('day').textContent =
+    days[getBDDay()] + " • Bangladesh Time";
+}
+
+// Week starts Saturday
+function getPlanIndex() {
+  return (getBDDay() + 1) % 7;
+}
+
+function getTasks() {
+  const i = getPlanIndex();
+  return [
+    "breakfast","lunch","snack","dinner",
+    ...waterPlans.map((_,j)=>"water"+j),
+    ...exercisePlans[i].map((_,j)=>"exercise"+j)
+  ];
+}
+
+function isChecked(id) {
+  return !!(completed[currentDate] &&
+            completed[currentDate][id]);
+}
+
+function toggleCheck(id,value) {
+  if(!completed[currentDate]) {
+    completed[currentDate] = {};
+  }
+
+  completed[currentDate][id] = value;
+  saveData();
+  updateProgress();
+}
+
+function makeCard(title,description,id) {
+  return `
+    <div class="card">
+      <h3>${title}</h3>
+      <p>${description}</p>
+      <label class="check">
+        <input type="checkbox"
+          ${isChecked(id)?'checked':''}
+          onchange="toggleCheck('${id}',this.checked)">
+        Completed ✓
+      </label>
+    </div>
+  `;
+}
+
+function renderFood() {
+  const f = foodPlans[getPlanIndex()];
+
+  document.getElementById('foodList').innerHTML =
+    makeCard("🌅 Breakfast",f.breakfast,"breakfast")+
+    makeCard("☀️ Lunch",f.lunch,"lunch")+
+    makeCard("🍎 Evening Snack",f.snack,"snack")+
+    makeCard("🌙 Dinner",f.dinner,"dinner");
+}
+
+function renderWater() {
+  document.getElementById('waterList').innerHTML =
+    waterPlans.map((w,i)=>
+      makeCard("💧 Water Reminder",w,"water"+i)
+    ).join('');
+}
+
+function renderExercise() {
+  const e = exercisePlans[getPlanIndex()];
+
+  document.getElementById('exerciseList').innerHTML =
+    e.map((item,i)=>`
+      <div class="card">
+        <h3>🧘 ${item[0]}</h3>
+        <p><b>Reps / Duration:</b> ${item[1]}</p>
+        <p><b>Steps:</b> ${item[2]}</p>
+        <p>ধীরে করবে, অস্বস্তি হলে থামবে।</p>
+        <label class="check">
+          <input type="checkbox"
+            ${isChecked("exercise"+i)?'checked':''}
+            onchange="toggleCheck('exercise${i}',this.checked)">
+          Exercise Completed ✓
+        </label>
+      </div>
+    `).join('')+
+    `<p class="empty">Exercise is optional. Rest when needed. 🌸</p>`;
+}
+
+function updateProgress() {
+  const tasks = getTasks();
+  const done = tasks.filter(isChecked).length;
+  const percent = Math.round(done/tasks.length*100);
+
+  document.getElementById('progress').style.width =
+    percent+'%';
+
+  document.getElementById('percent').textContent =
+    percent+'%';
+
+  document.getElementById('count').textContent =
+    done+' / '+tasks.length+' tasks completed';
+}
+
+function showTab(id,button) {
+  document.querySelectorAll('.section')
+    .forEach(s=>s.classList.remove('active'));
+
+  document.querySelectorAll('.tab')
+    .forEach(t=>t.classList.remove('active'));
+
+  document.getElementById(id).classList.add('active');
+  button.classList.add('active');
+}
+
+function renderAll() {
+  renderFood();
+  renderWater();
+  renderExercise();
+  updateDate();
+  updateProgress();
+}
+
+loadData();
+renderAll();
+
+// Check date change every second
+setInterval(updateDate,1000);
+
+// Refresh when returning to the website
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden) {
+    updateDate();
+  }
+});
+
+</script>
+
+</body>
+  </html>
+  
